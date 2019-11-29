@@ -22,6 +22,7 @@ public class QuestionAChoixMultipleTest {
     
     private QuestionAChoixMultiple question;
     private List<Integer> reponses ;
+   
     
     public QuestionAChoixMultipleTest() {
     }
@@ -40,7 +41,7 @@ public class QuestionAChoixMultipleTest {
         reponses.add(1);
         reponses.add(4);
         //given : un objet de type QuestionAChoixMultiple
-        this.question = new QuestionAChoixMultiple("un énoncé",reponses);
+        this.question = new QuestionAChoixMultiple("un énoncé",reponses,4);
     }
     
     @After
@@ -69,14 +70,14 @@ public class QuestionAChoixMultipleTest {
         int indice = 4;
         // and : on demande le calcul du score
         Float score = question.getScoreForIndice(indice);
-        // then : le score obtenu est de 50
+        // then : le score obtenu est 100f/nbreponses
         assertEquals(new Float(100f/reponses.size()),score);
         //when : un étudiant fourni un indice correspondant à une mauvaise réponse 
         indice = 3;
         // and : on demande le calcul du score 
         score = question.getScoreForIndice(indice);
-        //then : le score obtenu est de 0
-        assertEquals(new Float(0f),score);
+        //then : le score obtenu est de -50f
+        assertEquals(new Float(-100f/(question.getNbReponsePossible()-reponses.size())),score);
     }
     
 }

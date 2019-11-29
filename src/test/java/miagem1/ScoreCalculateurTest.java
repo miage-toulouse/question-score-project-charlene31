@@ -37,7 +37,7 @@ public class ScoreCalculateurTest {
     @Before
     public void setUp() {
         this.calculateur = new ScoreCalculateur();
-        this.question = new QuestionAChoixMultiple("q1",new ArrayList<Integer>(Arrays.asList(2,3,5)));
+        this.question = new QuestionAChoixMultiple("q1",new ArrayList<Integer>(Arrays.asList(2,3,5)),5);
     }
     
     @After
@@ -63,9 +63,21 @@ public class ScoreCalculateurTest {
      assertEquals(new Float(2*100f/3),score,0.1f);
      // when : un étudient fourni que des mauvaises reponses
      reponses = new ArrayList<>(Arrays.asList(1,4));
-     //and : on calcul le score total
+     // and : on calcul le score total
      score = calculateur.calculeScore(reponses, question);
-     //then : le score est égal à 0
+     // then : le score est égal à 0
      assertEquals(new Float(0f), score);
-    }
+     // when : un étudiant fourni les reponses 1,2,3,4,5
+     reponses = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+     // and : on calcul le score total
+     score = calculateur.calculeScore(reponses, question);
+     // then : le score est égal à 0 
+     assertEquals(new Float(0f),score);
+     // when : un étudiant fourni les reponses 1,2,3
+     reponses = new ArrayList<>(Arrays.asList(1,2,3));
+     // and : on calcul le score total
+     score = calculateur.calculeScore(reponses,question);
+     // then : le score est égal à 16,66
+     assertEquals(new Float(16.66f),score,0.01f);
+     }
 }
